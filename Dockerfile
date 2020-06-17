@@ -4,4 +4,5 @@ RUN pip install streamlink
 
 WORKDIR /app
 ADD roku-hls.py roku-hls.py
+ADD index.html index.html
 CMD python roku-hls.py
