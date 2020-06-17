@@ -6,10 +6,13 @@ import streamlink
 import urllib
 import requests
 
+f = open("index.html", "r")
+index = f.read()
+
 class Server(BaseHTTPRequestHandler):
     def _set_headers(self):
         self.send_response(200)
-        self.send_header('Content-type', 'application/json')
+        self.send_header('Content-type', 'text/html')
         self.end_headers()
         
     def do_HEAD(self):
@@ -18,7 +21,7 @@ class Server(BaseHTTPRequestHandler):
     # GET sends back a Hello world message
     def do_GET(self):
         self._set_headers()
-        self.wfile.write(json.dumps({'hello': 'world', 'received': 'ok'}))
+        self.wfile.write(index)
         
     # POST echoes the message adding a JSON field
     def do_POST(self):

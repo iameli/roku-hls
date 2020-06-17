@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>roku-hls</title>
+    <style>
+      * {
+        box-sizing: border-box;
+        font-family: sans-serif;
+      }
+      html,
+      body,
+      form {
+        height: 100%;
+      }
+      form {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+      }
+      input {
+        background-color: #cccccc;
+        border: none;
+        width: 90vw;
+        height: 60px;
+        padding: 10px;
+      }
+      button {
+        display: block;
+        font-size: 2em;
+        padding: 5px 40px;
+      }
+    </style>
+  </head>
+  <body>
+    <form>
+      <input type="text" /><br />
+      <button type="submit">Go</button>
+      <h5></h5>
+    </form>
+    <script>
+      document.querySelector("form").addEventListener("submit", (e) => {
+        e.preventDefault();
+        const h5 = document.querySelector("h5");
+        const text = document.querySelector("input").value;
+        h5.innerHTML = "Loading...";
+        fetch("/", {
+          method: "POST",
+          body: JSON.stringify({ url: text }),
+        })
+          .then((res) => {
+            h5.innerHTML = `HTTP ${res.status}`;
+          })
+          .catch((err) => {
+            h5.innerHTML = "Error";
+          });
+      });
+    </script>
+  </body>
+</html>
